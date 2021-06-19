@@ -28,13 +28,13 @@
   <nav aria-label="Page navigation example">
     <ul class="pagination">
       {% for pagina in contatos.paginator.page_range %}
-        {% if contato.number == pagina %}
+        {% if contatos.number == pagina %}
           <li class="page-item active">
-            <a class="page-link" href="?page={{pagina}}">{{pagina}}</a>
+            <a class="page-link" href="?page={{pagina}}&termo={{request.GET.termo}}">{{pagina}}</a>
           </li>
         {% else %}
               <li class="page-item ">
-            <a class="page-link" href="?page={{pagina}}">{{pagina}}</a>
+            <a class="page-link" href="?page={{pagina}}&termo={{request.GET.termo}}">{{pagina}}</a>
         {% endif %}
 
       {% endfor %}
