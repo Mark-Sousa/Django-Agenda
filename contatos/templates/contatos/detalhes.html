@@ -1,26 +1,31 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1 class="mt-5">{{detalhe.nome}}</h1>
-        <dl>
-          <dt>ID</dt>
-          <dd>{{detalhe.id}}</dd>
+  <h1 class="mt-5">{{detalhe.nome}}</h1>
+  {% if detalhe.imagem %}
+  <p>
+    <img src="{{detalhe.imagem.url}}" style="max-width: 250px; height: auto;">
+  </p>
+  {% endif %}
+  <dl>
+    <dt>ID</dt>
+    <dd>{{detalhe.id}}</dd>
 
-          <dt>Telefone</dt>
-          <dd>{{detalhe.telefone}}</dd>
+    <dt>Telefone</dt>
+    <dd>{{detalhe.telefone}}</dd>
 
-          <dt>E-mail</dt>
-          <dd>{{detalhe.email}}</dd>
+    <dt>E-mail</dt>
+    <dd>{{detalhe.email}}</dd>
 
-          <dt>Data criação</dt>
-          <dd>{{detalhe.data_criacao|date:'d/m/Y'}}</dd>
+    <dt>Data criação</dt>
+    <dd>{{detalhe.data_criacao|date:'d/m/Y'}}</dd>
 
-          <dt>Categoria</dt>
-          <dd>{{detalhe.categoria}}</dd>
+    <dt>Categoria</dt>
+    <dd>{{detalhe.categoria}}</dd>
 
-          <dt>Descrição</dt>
-          <dd>
-            {{detalhe.descricao}}
-          </dd>
-        </dl>
+    <dt>Descrição</dt>
+    <dd>
+      {{detalhe.descricao}}
+    </dd>
+  </dl>
 {% endblock content %}
