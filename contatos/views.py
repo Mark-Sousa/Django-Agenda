@@ -1,8 +1,9 @@
-from django.shortcuts import render, get_object_or_404, Http404
+from django.shortcuts import render, get_object_or_404, Http404,redirect
 from .models import Contato
 from django.core.paginator import Paginator
 from django.db.models import Q, Value
 from django.db.models.functions import Concat
+from django.contrib import messages
 
 
 def index(request):
@@ -23,15 +24,16 @@ def mostrar_detalhes(request, pk):
 
 def busca(request):
     termo = request.GET.get('termo')
-    if termo is None:
-        raise Http404
+    if termo is None or not termo:
+        messages.add_message(request, messages.ERROR, 'Este campo não pode ficar vazio.')
+        return redirect('url_index')
 
     campos = Concat('nome', Value(' '), 'sobrenome')
     contatos = Contato.objects.annotate(
         nome_completo=campos
     ).filter(
         Q(nome_completo__icontains=termo) | Q(telefone__icontains=termo))
-    print(contatos.query)
+
     paginator = Paginator(contatos, 5)
     page_number = request.GET.get('page')
     contatos = paginator.get_page(page_number)
