@@ -74,8 +74,17 @@ def cadastro(request):
 
 def editar_cadastro(request, pk):
     contato_antigo = Contato.objects.get(id=pk)
-    form = FormContato(data=request.POST or None, instance=contato_antigo)
+    form = FormContato(request.POST or None, instance=contato_antigo)
+    if form.is_valid():
+        form.save()
+        return redirect('url_index')
     return render(request, 'accounts/dashboard.html', {'form': form})
+
+
+def deletar_contato(request, pk):
+    contato = Contato.objects.get(id=pk)
+    contato.delete()
+    return redirect('url_index')
 
 
 @login_required

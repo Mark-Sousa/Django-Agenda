@@ -24,7 +24,7 @@
               <td>{{contato.categoria}}</td>
               <td>
                 <a href="{% url 'url_editar_cadastro' contato.id %}">Editar</a>
-                <a href="">Exluir</a>
+                <a href="{% url 'url_deletar' contato.id %}">Exluir</a>
               </td>
             </tr>
       {% endfor %}
