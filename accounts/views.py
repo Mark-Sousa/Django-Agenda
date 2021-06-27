@@ -3,6 +3,8 @@ from django.contrib import messages, auth
 from django.core.validators import validate_email
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from .forms import FormContato
+from contatos.models import Contato
 
 
 def login(request):
@@ -70,6 +72,33 @@ def cadastro(request):
     return redirect('url_login')
 
 
+def editar_cadastro(request, pk):
+    contato_antigo = Contato.objects.get(id=pk)
+    form = FormContato(data=request.POST or None, instance=contato_antigo)
+    return render(request, 'accounts/dashboard.html', {'form': form})
+
+
 @login_required
 def dashboard(request):
-    return render(request, 'accounts/dashboard.html')
+    if request.method == 'POST':
+        form = FormContato(request.POST, request.FILES)
+        if form.is_valid():
+            nome = form.cleaned_data['nome']
+            sobrenome = form.cleaned_data['sobrenome']
+            telefone = form.cleaned_data['telefone']
+            email = form.cleaned_data['email']
+            data_criacao = form.cleaned_data['data_criacao']
+            descricao = form.cleaned_data['descricao']
+            categoria = form.cleaned_data['categoria']
+            mostrar = form.cleaned_data['mostrar']
+            imagem = form.cleaned_data['imagem']
+
+            Contato.objects.create(nome=nome, sobrenome=sobrenome, telefone=telefone, email=email,
+                                   data_criacao=data_criacao, descricao=descricao, categoria=categoria, mostrar=mostrar,
+                                   imagem=imagem)
+            return redirect('url_index')
+
+    else:
+        form = FormContato()
+
+    return render(request, 'accounts/dashboard.html', {'form': form})

@@ -9,6 +9,7 @@
         <th>Sobrenome</th>
         <th>Telefone</th>
         <th>Categoria</th>
+        <th>Ações</th>
       </tr>
     </thead>
     <tbody>
@@ -21,6 +22,10 @@
               <td>{{contato.sobrenome}}</td>
               <td>{{contato.telefone}}</td>
               <td>{{contato.categoria}}</td>
+              <td>
+                <a href="{% url 'url_editar_cadastro' contato.id %}">Editar</a>
+                <a href="">Exluir</a>
+              </td>
             </tr>
       {% endfor %}
     </tbody>
@@ -40,4 +45,5 @@
       {% endfor %}
     </ul>
   </nav>
+  <a href="{% url 'url_dashboard' %}" class="btn btn-primary" >Novo Contato</a>
 {% endblock content %}

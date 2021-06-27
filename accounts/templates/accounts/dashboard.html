@@ -3,4 +3,20 @@
 {% block content %}
 
 {% include 'parciais/_messages.html' %}
+<h1>Adcionar Contato</h1>
+<div class="container">
+    <form method="post"  enctype="multipart/form-data">
+        {% csrf_token %}
+        <table class="table">
+            {{form}}
+            <tr>
+                <td>
+                    <button type="submit"  class="btn btn-primary">Salvar</button>
+                    <a href="{% url 'url_index' %}"  class="btn btn-danger">voltar</a>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</div>
 {% endblock content %}
