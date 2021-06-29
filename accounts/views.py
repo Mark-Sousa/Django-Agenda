@@ -19,7 +19,7 @@ def login(request):
         return render(request, 'accounts/login.html')
     else:
         auth.login(request, user)
-        return redirect('url_dashboard')
+        return redirect('url_contatos')
 
 
 def logout(request):
@@ -77,14 +77,14 @@ def editar_cadastro(request, pk):
     form = FormContato(request.POST or None, instance=contato_antigo)
     if form.is_valid():
         form.save()
-        return redirect('url_index')
+        return redirect('url_contatos')
     return render(request, 'accounts/dashboard.html', {'form': form})
 
 
 def deletar_contato(request, pk):
     contato = Contato.objects.get(id=pk)
     contato.delete()
-    return redirect('url_index')
+    return redirect('url_contatos')
 
 
 @login_required
@@ -105,7 +105,7 @@ def dashboard(request):
             Contato.objects.create(nome=nome, sobrenome=sobrenome, telefone=telefone, email=email,
                                    data_criacao=data_criacao, descricao=descricao, categoria=categoria, mostrar=mostrar,
                                    imagem=imagem)
-            return redirect('url_index')
+            return redirect('url_contatos')
 
     else:
         form = FormContato()
